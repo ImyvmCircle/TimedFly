@@ -81,6 +81,8 @@ public class Inventory implements Listener {
                         return;
                     }
 
+                    if (!itemsConfig.getBoolean("Items." + string + ".FlyItem")) return;
+
                     RefundManager refundManager = playerCache.getRefundManager();
                     if (!currencyManager.noCurrencyFound(player, languageConfig)) return;
                     if (!currencyManager.withdraw(player, price, time, refundManager)) return;

@@ -6,7 +6,6 @@ import com.timedfly.configurations.ItemsConfig;
 import com.timedfly.configurations.Languages;
 import com.timedfly.configurations.UpdateConfig;
 import com.timedfly.utilities.Message;
-import mkremins.fanciful.FancyMessage;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -37,10 +36,7 @@ public class MainCommand implements CommandExecutor {
             if (args.length == 0) {
                 sender.sendMessage(Message.color("&8&m----------------------------------------"));
                 sender.sendMessage(Message.color("&c&lTimedFly 3 &7created by &cBy_Jack"));
-                new FancyMessage(Message.color("&7To see all commands available use "))
-                        .then(Message.color("&c/tf help"))
-                        .tooltip(Message.color("&aClick here to get help"))
-                        .command("/timedfly help").send(sender);
+                sender.sendMessage(Message.color("&7To see all commands available use &c&l/tf help"));
                 sender.sendMessage(Message.color("&8&m----------------------------------------"));
                 return true;
             }
@@ -48,35 +44,15 @@ public class MainCommand implements CommandExecutor {
                 sender.sendMessage(Message.color("&8&m----------------------------------------"));
                 sender.sendMessage(Message.color("&c&l                  TimedFly 3"));
                 sender.sendMessage("");
-                new FancyMessage(Message.color("&6» &a/tf help &7- show this help page"))
-                        .tooltip("§aClick to execute /tf help").command("/tf help").send(sender);
-                new FancyMessage(Message.color("&6» &a/tf reload &7- reloads the config file"))
-                        .tooltip("§aClick to execute /tf reload").command("/tf reload").send(sender);
-                new FancyMessage(Message.color("&6» &a/tf setTime <itemID> <minutes> &7- create a new timed fly"))
-                        .tooltip("§aClick to execute /tf setTime <itemID> <minutes>")
-                        .suggest("/tf setTime <itemID> <minutes>")
-                        .send(sender);
-                new FancyMessage(Message.color("&6» &a/tf setPrice <itemID> <price> &7- create a new timed fly"))
-                        .tooltip("§aClick to execute /tf setPrice <itemID> <price>")
-                        .suggest("/tf setPrice <itemID> <price>")
-                        .send(sender);
-                new FancyMessage(Message.color("&6» &a/tf setItem <itemID> &7- set the item that you have on hand"))
-                        .tooltip("§aClick to execute /tf setItem <itemID>")
-                        .suggest("/tf setItem <itemID>")
-                        .send(sender);
-                new FancyMessage(Message.color("&6» &a/tf permissions &7- see all available permissions"))
-                        .tooltip("§aClick to execute /tf permissions").command("/tf permissions")
-                        .send(sender);
-                new FancyMessage(Message.color("&6» &a/tf list &7- see all the ItemID"))
-                        .tooltip("§aClick to execute /tf list").command("/tf list").send(sender);
-                new FancyMessage(Message.color("&6» &a/tf help2 &7- show next help page"))
-                        .tooltip("§aClick to execute /tf help2").command("/tf help2").send(sender);
+                sender.sendMessage(Message.color("&6» &a/tf help &7- show this help page"));
+                sender.sendMessage(Message.color("&6» &a/tf reload &7- reloads the config file"));
+                sender.sendMessage(Message.color("&6» &a/tf setTime <itemID> <minutes> &7- create a new timed fly"));
+                sender.sendMessage(Message.color("&6» &a/tf setPrice <itemID> <price> &7- create a new timed fly"));
+                sender.sendMessage(Message.color("&6» &a/tf setItem <itemID> &7- set the item that you have on hand"));
+                sender.sendMessage(Message.color("&6» &a/tf permissions &7- see all available permissions"));
+                sender.sendMessage(Message.color("&6» &a/tf list &7- see all the ItemID"));
+                sender.sendMessage(Message.color("&6» &a/tf help2 &7- show next help page"));
                 sender.sendMessage("");
-                sender.sendMessage(Message.color("&7Pro Tip: You can hover over the commands and click them"));
-                sender.sendMessage("");
-                new FancyMessage(Message.color("                 §7<<<         "))
-                        .then("§e>>>").tooltip("§aNext Page").command("/tf help2").send(sender);
-                sender.sendMessage(Message.color(""));
                 sender.sendMessage(Message.color("&7                 Version: &c" + plugin.getDescription().getVersion()));
                 sender.sendMessage(Message.color("&8&m----------------------------------------"));
                 return true;
@@ -85,42 +61,13 @@ public class MainCommand implements CommandExecutor {
                 sender.sendMessage(Message.color("&8&m----------------------------------------"));
                 sender.sendMessage(Message.color("&c&l                  TimedFly 3"));
                 sender.sendMessage(Message.color(""));
-                new FancyMessage(Message.color(
-                        "&6» &a/tfly &7- opens the fly menu"))
-                        .tooltip("§aClick to execute /tfly")
-                        .command("/tfly").send(sender);
-                new FancyMessage(Message.color(
-                        "&6» &a/tfly set <player> <minutes> &7- set fly mode to another &7player, no cost"))
-                        .tooltip("§aClick to insert /tfly set <player> <minutes>")
-                        .suggest("/tfly set <player> <minutes>")
-                        .send(sender);
-                new FancyMessage(Message.color(
-                        "&6» &a/tfly add <player> <minutes> &7- add minutes to another &7player, no cost"))
-                        .tooltip("§aClick to insert /tfly add <player> <minutes>")
-                        .suggest("/tfly add <player> <minutes>")
-                        .send(sender);
-                new FancyMessage(Message.color(
-                        "&6» &a/tfly on &7- set fly mode to yourself, no time nor cost"))
-                        .tooltip("§aClick to execute /tfly on")
-                        .command("/tfly on")
-                        .send(sender);
-                new FancyMessage(Message.color(
-                        "&6» &a/tfly off &7- unset fly mode to yourself"))
-                        .tooltip("§aClick to execute /tfly off")
-                        .command("/tfly off")
-                        .send(sender);
-                new FancyMessage(Message.color(
-                        "&6» &a/tfly timeleft &7[player] - check how much time do you &7have &7left"))
-                        .tooltip("§aClick to execute /tfly timeleft")
-                        .command("/tfly timeleft")
-                        .send(sender);
-                new FancyMessage(Message.color("&6» &a/tf help3 &7- show next help page"))
-                        .tooltip("§aClick to execute /tf help3").command("/tf help3").send(sender);
-                sender.sendMessage(Message.color(""));
-                sender.sendMessage(Message.color("&7Pro Tip: You can hover over the commands and click them"));
-                sender.sendMessage(Message.color(""));
-                new FancyMessage("                 ").then("§e<<<")
-                        .tooltip("§aPrevious Page").command("/tf help").then("         §e>>>").tooltip("§aNext Page").command("/tf help3").send(sender);
+                sender.sendMessage(Message.color("&6» &a/tfly &7- opens the fly menu"));
+                sender.sendMessage(Message.color("&6» &a/tfly set <player> <minutes> &7- set fly mode to another &7player, no cost"));
+                sender.sendMessage(Message.color("&6» &a/tfly add <player> <minutes> &7- add minutes to another &7player, no cost"));
+                sender.sendMessage(Message.color("&6» &a/tfly on &7- set fly mode to yourself, no time nor cost"));
+                sender.sendMessage(Message.color("&6» &a/tfly off &7- unset fly mode to yourself"));
+                sender.sendMessage(Message.color("&6» &a/tfly timeleft &7[player] - check how much time do you &7have &7left"));
+                sender.sendMessage(Message.color("&6» &a/tf help3 &7- show next help page"));
                 sender.sendMessage(Message.color(""));
                 sender.sendMessage(Message.color("&7                 Version: &c" + plugin.getDescription().getVersion()));
                 sender.sendMessage(Message.color("&8&m----------------------------------------"));
@@ -130,27 +77,10 @@ public class MainCommand implements CommandExecutor {
                 sender.sendMessage(Message.color("&8&m----------------------------------------"));
                 sender.sendMessage(Message.color("&c&l                  TimedFly 3"));
                 sender.sendMessage(Message.color(""));
-                new FancyMessage(Message.color(
-                        "&6» &a/tfly refund &7- get your money back"))
-                        .tooltip("§aClick to execute /tfly refund")
-                        .command("/tfly refund").send(sender);
-                new FancyMessage(Message.color(
-                        "&6» &a/tfly fix &7- get your flight ability back"))
-                        .tooltip("§aClick to execute /tfly fix")
-                        .command("/tfly fix").send(sender);
-                new FancyMessage(Message.color(
-                        "&6» &a/tfly stop &7- stop and save your time left"))
-                        .tooltip("§aClick to execute /tfly stop")
-                        .command("/tfly stop").send(sender);
-                new FancyMessage(Message.color(
-                        "&6» &a/tfly resume &7- resume your time left"))
-                        .tooltip("§aClick to execute /tfly resume")
-                        .command("/tfly resume").send(sender);
-                sender.sendMessage(Message.color(""));
-                sender.sendMessage(Message.color("&7Pro Tip: You can hover over the commands and click them"));
-                sender.sendMessage(Message.color(""));
-                new FancyMessage("                 ").then("§e<<<")
-                        .tooltip("§aPrevious Page").command("/tf help2").then("         §7>>>").send(sender);
+                sender.sendMessage(Message.color("&6» &a/tfly refund &7- get your money back"));
+                sender.sendMessage(Message.color("&6» &a/tfly fix &7- get your flight ability back"));
+                sender.sendMessage(Message.color("&6» &a/tfly stop &7- stop and save your time left"));
+                sender.sendMessage(Message.color("&6» &a/tfly resume &7- resume your time left"));
                 sender.sendMessage(Message.color(""));
                 sender.sendMessage(Message.color("&7                 Version: &c" + plugin.getDescription().getVersion()));
                 sender.sendMessage(Message.color("&8&m----------------------------------------"));
@@ -221,16 +151,16 @@ public class MainCommand implements CommandExecutor {
                         Message.sendMessage(sender, languageConfig.getString("Other.SetTime.Usage"));
                         return true;
                     }
-                    int gettime = Integer.parseInt(args[1]);
-                    int time = Integer.parseInt(args[2]);
-                    if (itemsConfig.contains("Items." + gettime)) {
-                        itemsConfig.set("Items." + gettime + ".Time", time);
+                    String item = args[1];
+                    String time = args[2];
+                    if (itemsConfig.contains("Items." + item)) {
+                        itemsConfig.set("Items." + item + ".Time", time);
                         this.itemsConfig.saveItemsConfig();
                         Message.sendMessage(sender, languageConfig.getString("Other.SetTime.Found")
-                                .replace("%time%", Integer.toString(time)).replace("%itemid%", Integer.toString(gettime)));
+                                .replace("%time%", time).replace("%itemid%", item));
                     } else {
                         Message.sendMessage(sender, languageConfig.getString("Other.SetTime.NotFound")
-                                .replace("%time%", Integer.toString(time)).replace("%itemid%", Integer.toString(gettime)));
+                                .replace("%time%", time).replace("%itemid%", item));
                     }
                 } else {
                     Message.sendMessage(sender, languageConfig.getString("Other.NoPermission.Message"));
@@ -248,16 +178,16 @@ public class MainCommand implements CommandExecutor {
                         Message.sendMessage(sender, languageConfig.getString("Other.SetPrice.Usage"));
                         return true;
                     }
-                    int getprice = Integer.parseInt(args[1]);
+                    String item = args[1];
                     int price = Integer.parseInt(args[2]);
-                    if (itemsConfig.contains("Items." + getprice)) {
-                        itemsConfig.set("Items." + getprice + ".Price", price);
+                    if (itemsConfig.contains("Items." + item)) {
+                        itemsConfig.set("Items." + item + ".Price", price);
                         this.itemsConfig.saveItemsConfig();
                         Message.sendMessage(sender, languageConfig.getString("Other.SetPrice.Found")
-                                .replace("%price%", Integer.toString(price)).replace("%itemid%", Integer.toString(getprice)));
+                                .replace("%price%", Integer.toString(price)).replace("%itemid%", item));
                     } else {
                         Message.sendMessage(sender, languageConfig.getString("Other.SetPrice.NotFound")
-                                .replace("%price%", Integer.toString(price)).replace("%itemid%", Integer.toString(getprice)));
+                                .replace("%price%", Integer.toString(price)).replace("%itemid%", item));
                     }
                 } else {
                     Message.sendMessage(sender, languageConfig.getString("Other.NoPermission.Message"));

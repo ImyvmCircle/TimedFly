@@ -4,13 +4,11 @@ import com.timedfly.TimedFly;
 import com.timedfly.configurations.ConfigCache;
 import com.timedfly.customevents.FlightTimeEndEvent;
 import com.timedfly.customevents.FlightTimeStartEvent;
-import com.timedfly.customevents.FlightTimeSubtractEvent;
 import com.timedfly.listener.FallDamage;
 import com.timedfly.utilities.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.Objects;
@@ -76,33 +74,12 @@ public class PlayerManager {
                 this.setFlying(true);
                 this.setTimePaused(false);
                 Message.sendDebugMessage(this.getClass().getSimpleName() + "&c:startTimedFly: &7Starting runnable", 2);
-                if (this.timeLeft > 0 && !this.timeEnded) {
-                    cancelTask();
-                    task = (new BukkitRunnable() {
-                        public void run() {
-                            if (PlayerManager.this.getTimeLeft() > 0) {
-                                PlayerManager.this.setTimeLeft(PlayerManager.this.timeLeft--);
-                                PlayerManager.this.timeLeft--;
-                                FlightTimeSubtractEvent event = new FlightTimeSubtractEvent(PlayerManager.this.player, PlayerManager.this.uuid, PlayerManager.this.initialTime, PlayerManager.this.timeLeft, PlayerManager.this);
-                                Bukkit.getServer().getPluginManager().callEvent(event);
-                            } else {
-                                PlayerManager.this.stopTimedFly(true, false);
-                            }
 
-                        }
-                    }).runTaskTimer(this.plugin, 0L, 20L);
-                }
+                if (this.timeLeft > 0 && !this.timeEnded) FlyTimeManager.getMap().put(player.getUniqueId(), this);
 
                 FlightTimeStartEvent event = new FlightTimeStartEvent(this.player, this.uuid, this.initialTime, this.timeLeft, this);
                 Bukkit.getServer().getPluginManager().callEvent(event);
             }
-        }
-    }
-
-    private void cancelTask() {
-        if (task != null) {
-            task.cancel();
-            task = null;
         }
     }
 
@@ -115,7 +92,7 @@ public class PlayerManager {
             }
 
             Message.sendDebugMessage(this.getClass().getSimpleName() + "&c:stopTimedFly: &7stopping fly", 1);
-            cancelTask();
+
             this.setTimeEnded(true);
             this.setTimePaused(timePaused);
             if (this.isInServer()) {
@@ -137,13 +114,18 @@ public class PlayerManager {
             }
 
             if (save) {
-                this.sqlManager.saveData(this.getPlayerFromUUID(), this.getTimeLeft(), this.getInitialTime(), this.isTimeManuallyPaused());
+                this.sqlManager.saveDataAsync(this.getPlayerFromUUID(), this.getTimeLeft(), this.getInitialTime(), this.isTimeManuallyPaused());
             }
 
+            FlyTimeManager.getMap().remove(player.getUniqueId());
             Message.sendDebugMessage(this.getClass().getSimpleName() + "&c:stopTimedFly: &7TimeLeft: " + this.getTimeLeft() + ", Initial: " + this.getInitialTime(), 1);
             FlightTimeEndEvent event = new FlightTimeEndEvent(this.player, this.uuid, this.initialTime, this.timeLeft, timePaused, this);
             Bukkit.getServer().getPluginManager().callEvent(event);
         }
+    }
+
+    public void stopTimedFly() {
+        stopTimedFly(false, false);
     }
 
     public PlayerManager addTime(int time) {

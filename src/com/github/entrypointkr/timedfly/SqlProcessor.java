@@ -1,5 +1,7 @@
 package com.github.entrypointkr.timedfly;
 
+import com.timedfly.configurations.ConfigCache;
+import com.timedfly.utilities.Message;
 import org.bukkit.plugin.Plugin;
 
 import java.sql.Connection;
@@ -14,14 +16,28 @@ public class SqlProcessor implements Runnable {
     private final Plugin plugin;
     private final BlockingDeque<Consumer<Connection>> queue = new LinkedBlockingDeque<>();
     private final CountDownLatch latch = new CountDownLatch(1);
-    private final Connection connection;
+    private Connection connection;
     private boolean count = false;
 
     public SqlProcessor(Plugin plugin) {
         this.plugin = plugin;
         try {
-            this.connection = DriverManager.getConnection("jdbc:sqlite:" + this.plugin.getDataFolder() + "/SQLite.db");
-        } catch (SQLException e) {
+            String host = ConfigCache.getMysqlHost();
+            String port = ConfigCache.getMysqlPort();
+            String database = ConfigCache.getMysqlDB();
+            String username = ConfigCache.getMysqlUser();
+            String password = ConfigCache.getMysqlPasss();
+
+            if (ConfigCache.getSqlType().equalsIgnoreCase("sqlite")) {
+                Class.forName("org.sqlite.JDBC");
+                String url = "jdbc:sqlite:" + plugin.getDataFolder() + "/SQLite.db";
+                this.connection = DriverManager.getConnection(url);
+            } else if (ConfigCache.getSqlType().equalsIgnoreCase("mysql")) {
+                Class.forName("com.mysql.jdbc.Driver");
+                this.connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database
+                        + "?autoReconnect=true", username, password);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
             throw new IllegalArgumentException(e);
         }
     }

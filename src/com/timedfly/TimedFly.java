@@ -34,10 +34,7 @@ import com.timedfly.listener.Inventory;
 import com.timedfly.listener.JoinLeave;
 import com.timedfly.listener.PlayerOnGround;
 import com.timedfly.listener.Respawn;
-import com.timedfly.managers.CurrencyManager;
-import com.timedfly.managers.HooksManager;
-import com.timedfly.managers.MySQLManager;
-import com.timedfly.managers.PlayerManager;
+import com.timedfly.managers.*;
 import com.timedfly.updater.Updater;
 import com.timedfly.utilities.FlyGUI;
 import com.timedfly.utilities.Message;
@@ -62,15 +59,17 @@ public class TimedFly extends JavaPlugin {
     private static String version;
     private FlyGUI flyGUI;
     private NMS nms;
-    private final SqlProcessor sqlProcessor;
+    private SqlProcessor sqlProcessor;
 
     public TimedFly() {
-        this.sqlProcessor = new SqlProcessor(this);
     }
 
     public void onEnable() {
         new Thread(sqlProcessor).start();
+        new FlyTimeManager().runTaskTimer(this, 0, 20);
         new ConfigCache(this);
+        this.sqlProcessor = new SqlProcessor(this);
+
         Message.sendConsoleMessage("&7Enabling TimedFly &6v" + this.getDescription().getVersion());
         if (!this.setupNMS()) {
             Message.sendConsoleMessage("&cUnsupported Minecraft version! It's possible that the plugin fail to work correctly!");

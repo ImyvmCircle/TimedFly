@@ -53,7 +53,7 @@
 #    Price: 2000
 #    Time in minutes of flight time
 #    Time: 15
-#    Time the player needs to wait before getting more flight time. Use s for seconds, m for minutes, and s for seconds
+#    Time the player needs to wait before getting more flight time. Use h for hours, m for minutes, and s for seconds
 #    Cooldown: 15m
 #
 #   Some Placeholders you could use are:

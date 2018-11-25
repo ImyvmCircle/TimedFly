@@ -17,11 +17,11 @@ public class FlightTimeSubtractEvent extends Event {
 
     private static final HandlerList handlers = new HandlerList();
 
-    public FlightTimeSubtractEvent(Player player, UUID uuid, int initialTime, int timeLeft, PlayerManager playerManager) {
+    public FlightTimeSubtractEvent(Player player, PlayerManager playerManager) {
         this.player = player;
-        this.uuid = uuid;
-        this.initialTime = initialTime;
-        this.timeLeft = timeLeft;
+        this.uuid = player.getUniqueId();
+        this.initialTime = playerManager.getInitialTime();
+        this.timeLeft = playerManager.getTimeLeft();
         this.playerManager = playerManager;
     }
 

@@ -71,20 +71,24 @@ public class Utilities {
         return playerManager;
     }
 
-    private void addPlayerManager(UUID uuid, Plugin plugin, int initialTime, int timeLeft) {
+    private PlayerManager addPlayerManager(UUID uuid, Plugin plugin, int initialTime, int timeLeft) {
         PlayerManager playerManager = new PlayerManager(plugin, uuid, initialTime, timeLeft);
         playerManager.setInServer(true);
-        this.playerManagerMap.put(uuid, playerManager);
+        return this.playerManagerMap.put(uuid, playerManager);
     }
 
-    public void addPlayerManager(UUID uuid, Plugin plugin) {
-        addPlayerManager(uuid, plugin, 0, 0);
+    public PlayerManager addPlayerManager(UUID uuid, Plugin plugin) {
+        return addPlayerManager(uuid, plugin, 0, 0);
     }
 
-    public void addPlayerManager(UUID uuid, Player player, Plugin plugin) {
+    public PlayerManager addPlayerManager(UUID uuid, Player player, Plugin plugin) {
         PlayerManager playerManager = new PlayerManager(plugin, player, uuid, 0, 0);
         playerManager.setInServer(true);
-        this.playerManagerMap.put(uuid, playerManager);
+        return this.playerManagerMap.put(uuid, playerManager);
+    }
+
+    public PlayerManager setPlayerManager(UUID uuid, PlayerManager playerManager) {
+        return this.playerManagerMap.put(uuid, playerManager);
     }
 
     public long getPlayersTimeLeft() {
